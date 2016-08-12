@@ -16,10 +16,9 @@ for i in $(curl -sS master.mesos:5050/slaves | jq '.slaves[] | .hostname' | tr -
 Open the DC/OS management portal and install elasaticsearch from the portal. Feel free to adjust the CPU and memory settings.  If you change the executor name or ports you will need to re-configure the catalog service configuration.
 
 or install via below command line :
-
+```
 curl https://raw.githubusercontent.com/srakesh28/acs-e2e/master/json/elastic.json | curl -qs -XPOST master.mesos/marathon/v2/apps -d@- -H "Content-Type: application/json"
-
-
+```
 ### 2. Install the catalog service
 From the console on the master execute the following script.  You can copy and paste this into the terminal window with the SSH connection to a machine in your cluster
 ```
