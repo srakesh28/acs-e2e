@@ -1,0 +1,78 @@
+{
+  "id": "/elasticsearch",
+  "cmd": null,
+  "cpus": 0.2,
+  "mem": 512,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mesos/elasticsearch-scheduler:1.0.1",
+      "network": "HOST",
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "env": {
+    "JAVA_OPTS": "-Xms128m -Xmx256m"
+  },
+  "healthChecks": [
+    {
+      "path": "/",
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "gracePeriodSeconds": 120,
+      "intervalSeconds": 30,
+      "timeoutSeconds": 5,
+      "maxConsecutiveFailures": 0,
+      "ignoreHttp1xx": false
+    }
+  ],
+  "labels": {
+    "DCOS_PACKAGE_RELEASE": "1",
+    "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo-1.7",
+    "DCOS_PACKAGE_METADATA": "eyJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIFZlcnNpb24gMi4wIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL21lc29zL2VsYXN0aWNzZWFyY2gvbWFzdGVyL0xJQ0VOU0UifV0sIndlYnNpdGUiOiJodHRwczovL2dpdGh1Yi5jb20vbWVzb3MvZWxhc3RpY3NlYXJjaCIsIm5hbWUiOiJlbGFzdGljc2VhcmNoIiwicG9zdEluc3RhbGxOb3RlcyI6IkVsYXN0aWNzZWFyY2ggaXMgc3RhZ2luZy4gQ2hlY2sgTWFyYXRob24gYW5kIHRoZSBFUyBtYW5hZ2VtZW50IGZyb250LWVuZCBmb3Igc3RhdHVzLiIsInNjbSI6Imh0dHBzOi8vZ2l0aHViLmNvbS9tZXNvcy9lbGFzdGljc2VhcmNoLmdpdCIsImRlc2NyaXB0aW9uIjoiRENPUyBpbXBsZW1lbnRhdGlvbiBvZiB0aGUgTWVzb3MtRWxhc3RpY3NlYXJjaCBmcmFtZXdvcmsiLCJwYWNrYWdpbmdWZXJzaW9uIjoiMi4wIiwidGFncyI6WyJlbGFzdGljIiwibW9uaXRvcmluZyIsImRlYnVnIl0sIm1haW50YWluZXIiOiJwbndAdHJpZm9yay5jb20iLCJmcmFtZXdvcmsiOnRydWUsInZlcnNpb24iOiIxLjAuMSIsInByZUluc3RhbGxOb3RlcyI6IlRoZSBFbGFzdGljU2VhcmNoIERDT1MgU2VydmljZSBpbXBsZW1lbnRhdGlvbiBpcyBhbHBoYSBhbmQgdGhlcmUgbWF5IGJlIGJ1Z3MsIGluY29tcGxldGUgZmVhdHVyZXMsIGluY29ycmVjdCBkb2N1bWVudGF0aW9uIG9yIG90aGVyIGRpc2NyZXBhbmNpZXMuIiwiaW1hZ2VzIjp7Imljb24tc21hbGwiOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWVsYXN0aWNzZWFyY2gtc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWVsYXN0aWNzZWFyY2gtbWVkaXVtLnBuZyIsImljb24tbGFyZ2UiOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWVsYXN0aWNzZWFyY2gtbGFyZ2UucG5nIiwic2NyZWVuc2hvdHMiOm51bGx9fQ==",
+    "DCOS_PACKAGE_REGISTRY_VERSION": "2.0",
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "elasticsearch",
+    "DCOS_PACKAGE_VERSION": "1.0.1",
+    "DCOS_PACKAGE_NAME": "elasticsearch",
+    "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+  },
+  "portDefinitions": [
+    {
+      "port": 31105,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "args": [
+    "--zookeeperMesosUrl",
+    "zk://master.mesos:2181/mesos",
+    "--zookeeperMesosTimeout",
+    "20000",
+    "--webUiPort",
+    "31105",
+    "--frameworkFailoverTimeout",
+    "2592000.0",
+    "--frameworkName",
+    "elasticsearch",
+    "--elasticsearchNodes",
+    "3",
+    "--elasticsearchClusterName",
+    "mesos-ha",
+    "--elasticsearchCpu",
+    "0.5",
+    "--elasticsearchDisk",
+    "1024",
+    "--elasticsearchRam",
+    "512",
+    "--executorForcePullImage",
+    "false",
+    "--executorName",
+    "elasticsearch-executor"
+  ],
+  "requirePorts": true
+}
