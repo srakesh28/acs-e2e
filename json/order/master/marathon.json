@@ -1,0 +1,70 @@
+{
+    "id": "order",
+    "apps": [
+        {
+            "id": "orderservice",
+            "container": {
+                "type": "DOCKER",
+                "docker": {
+                    "image": "flakio/orderservice:13",
+                    "privileged": false,
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 9000,
+                            "servicePort": 10002,
+                            "protocol": "tcp",
+                            "labels": {
+                                "VIP_0": "192.168.3.1:80"
+                            }
+                        }
+                    ],
+                    "parameters": []
+                }
+            },
+            "instances": 2,
+            "cpus": 0.1,
+            "mem": 128,
+            "env": {
+                "MYSQL_ENDPOINT": "mysql://root:my-secret-pw@192.168.3.2:3306"
+            },
+            "constraints": [
+                [
+                    "hostname",
+                    "UNIQUE"
+                ]
+            ],
+            "labels": {
+              "HAPROXY_GROUP":"external"
+            }
+        },
+        {
+            "id": "orderdb",
+            "container": {
+                "type": "DOCKER",
+                "docker": {
+                    "image": "mysql",
+                    "privileged": false,
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 3306,
+                            "servicePort": 10003,
+                            "protocol": "tcp",
+                            "labels": {
+                                "VIP_0": "192.168.3.2:3306"
+                            }
+                        }
+                    ],
+                    "parameters": []
+                }
+            },
+            "instances": 1,
+            "cpus": 0.2,
+            "mem": 256,
+            "env": {
+                "MYSQL_ROOT_PASSWORD": "my-secret-pw"
+            }
+        }
+    ]
+}
